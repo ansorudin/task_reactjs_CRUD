@@ -1,0 +1,30 @@
+{
+    "product": [
+        {
+            "productName" : "Sepatu Nike",
+            "price" : 20000,
+            "Stock" : 20,
+            "image" : "https://www.famousfootwear.com/productimages/shoes_ib95364.jpg?trim.threshold=105&width=630&height=480&paddingWidth=60"
+            
+        },
+        {
+            "productName" : "Sepatu Adidas",
+            "price" : 20000,
+            "Stock" : 20,
+            "image" : "https://www.office.co.uk/medias/sys_master/root/h2b/hc5/9057748484126/9057748484126.jpg"
+            
+        },
+        {
+            "productName" : "Sepatu Converse",
+            "price" : 20000,
+            "Stock" : 20,
+            "image" : "https://www.shooos.dk/media/catalog/product/cache/10/image/9df78eab33525d08d6e5fb8d27136e95/c/o/converse-chuck-taylor-all-star-70s-5.jpg"
+        },
+        {
+            "productName" : "Sepatu Vans",
+            "price" : 20000,
+            "Stock" : 20,
+            "image" : "https://images.vans.com/is/image/VansEU/VN0A38ENOAK-HERO?$PDP-FULL-IMAGE$"
+        }
+    ]
+}
