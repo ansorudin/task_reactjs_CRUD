@@ -11,7 +11,9 @@ class MainMenu extends React.Component{
 
     state = {
         data : null,
-        showForm : false
+        showForm : false,
+        selecId : null
+
     }
 
     componentDidMount(){
@@ -30,9 +32,28 @@ class MainMenu extends React.Component{
 
     mapData = () =>{
         return this.state.data.map((val, index) => {
+            if(this.state.selecId === val.id){
+                return(
+                    <div className="col-3 mt-4" key={index}>
+                        <div className="border rounded border-card">
+                            <div className='border rounded d-flex justify-content-center gambar-border'>
+                                <img src={val.image} className='card-image-top gambar-card align-self-center' alt='gambar gagal'/>
+                            </div>
+                            <div className="card-body">
+                                <h5><input type="text" defaultValue={val.productName} ref='namaNew' className='card-title form-control'/></h5>
+                                <h6><input type="text" defaultValue={val.price} ref='priceNew' className='card-text form-control'/></h6>
+                                <p><input type="text" defaultValue={val.stock} ref='stockNew' className='card-text form-control'/></p>
+                                <div className="row justify-content-center"><input type="button" value="Save" onClick={this.onSaveEdit}className='btn btn-outline-warning col-10'/></div>
+                                <div className="row justify-content-center"><input type="button" value="Cancel" onClick={() => this.setState({selecId : null})} className='btn btn-outline-danger mt-2 col-10'/></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                )
+            }
             return(
                 <div className="col-3 mt-4" key={index}>
-                    <div className="border rounded border-card">
+                    <div className="border rounded">
                         <div className='border rounded d-flex justify-content-center gambar-border'>
                             <img src={val.image} className='card-image-top gambar-card align-self-center' alt='gambar gagal'/>
                         </div>
@@ -40,7 +61,7 @@ class MainMenu extends React.Component{
                             <h5 className='card-title'>{val.productName}</h5>
                             <h6 className='card-text'>Rp. {val.price}</h6>
                             <p className='card-text'>Stock : {val.stock}</p>
-                            <div className="row justify-content-center"><input type="button" value="Edit Data" className='btn btn-outline-secondary col-10'/></div>
+                            <div className="row justify-content-center"><input type="button" value="Edit Data" onClick={() => this.setState({selecId : val.id})}className='btn btn-outline-secondary col-10'/></div>
                             <div className="row justify-content-center"><input type="button" value="Delete Data" className='btn btn-outline-secondary mt-2 col-10'/></div>
                         </div>
                     </div>
@@ -50,6 +71,30 @@ class MainMenu extends React.Component{
         })
     }
     
+   onSaveEdit = () => {
+    // ambil value dari inputan
+    var productNameBaru = this.refs.namaNew.value
+    var priceNew = this.refs.priceNew.value
+    var stockNew = this.refs.stockNew.value
+    // jika inputan ada semua
+    if(productNameBaru && priceNew && stockNew){
+        Axios.patch(linkApi + '/' + this.state.selecId, {productName : productNameBaru , price : priceNew, stock : stockNew})
+        .then((res) => {
+            console.log(res.data)
+            if(res.status === 200){
+                this.getData()
+                this.setState({selecId : null})
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })       
+    }else{
+        alert('Tidak boleh kosong')
+    }
+   }
+
+
     handleModal = () =>{
         this.setState({showForm : !this.state.showForm})
     }
@@ -100,14 +145,13 @@ class MainMenu extends React.Component{
                    </div>
                    
                     <Modal size="lg" isOpen={this.state.showForm} onExit={() => this.handleModal()}>
-                        <ModalHeader>Modal Head Part</ModalHeader>
+                        <ModalHeader>Tambah Data Produk</ModalHeader>
                             <ModalBody>
                                 <form className='needs-validation'>
                                     <div className="row m-3">
                                         <div className="col-12 form-group">
                                             <label>Product Name :</label>
                                             <input type="text" placeholder='Enter New Product Name' ref='productName' className='form-control'/>
-
                                         </div>
                                         <div className="col-12 form-group">
                                             <label>Price :</label>
