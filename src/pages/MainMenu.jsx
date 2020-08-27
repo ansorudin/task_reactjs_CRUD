@@ -1,10 +1,11 @@
 import React from 'react'
 import Axios from 'axios'
-import {Modal} from 'react-bootstrap'
+import {Modal, ModalHeader, ModalBody, ModalFooter, Toast, ToastBody, ToastHeader} from 'reactstrap'
 
 
 
-var linkApi = 'http://localhost:2000/product'
+
+const linkApi = 'http://localhost:2000/product'
 
 class MainMenu extends React.Component{
 
@@ -19,7 +20,7 @@ class MainMenu extends React.Component{
     getData = () =>{
         Axios.get(linkApi)
         .then((res) => {
-            console.log(res)
+            // console.log(res)
             this.setState({data : res.data})
         })
         .catch((err) =>{
@@ -55,35 +56,80 @@ class MainMenu extends React.Component{
 
     saveBtnHandle = () => {
         // ambil semua inputan dari user
-       
+        var prodak = this.refs.productName.value
+        var harga = this.refs.price.value
+        var quantiti = this.refs.stock.value
+        var gambar = this.refs.image.value
         // jika inputan ada semua
-       
+        Axios.post(linkApi, {productName : prodak , price : harga, stock : quantiti, image : gambar})
+        .then((res) => {
+            console.log(res.data)
+            if(res.status === 201){
+                this.handleModal()
+                this.getData()
+                this.haha()
+            }
+            
+        })
+        .catch((err) => {
+            console.log(err)
+        })       
+    }
+
+    haha(){
+        return(<div>
+        <Toast>
+            <ToastHeader>
+                Reactstrap
+            </ToastHeader>
+            <ToastBody>
+                This is a toast on a white background — check it out!
+            </ToastBody>
+        </Toast>
+        </div>
+        )
     }
 
     render(){
         if(this.state.data !== null){
             return(
+                
                 <div className='container border border-primary'>
+                    
                     <input type="button" value="Add New Product " onClick={() => {this.handleModal()}} className='btn btn-outline-secondary mt-3'/>
                    <div className="row container-fluid">
                        {this.mapData()}
                    </div>
                    
-                    <Modal size="lg" show={this.state.showForm} onHide={() => this.handleModal()}>
-                        <Modal.Header closeButton>Modal Head Part</Modal.Header>
-                            <Modal.Body>
+                    <Modal size="lg" isOpen={this.state.showForm} onExit={() => this.handleModal()}>
+                        <ModalHeader>Modal Head Part</ModalHeader>
+                            <ModalBody>
                                 <form>
-                                    <input type="text" placeholder='Enter New Product Name' className='form-control'/>
-                                    <input type="text" placeholder='Enter New Price' className='form-control'/>
-                                    <input type="text" placeholder='Enter New Stock Qty' className='form-control'/>
-                                    <input type="text" placeholder='Enter Url Image' className='form-control'/>
+                                    <div className="row m-3">
+                                        <div className="col-12 form-group">
+                                            <label>Product Name :</label>
+                                            <input type="text" placeholder='Enter New Product Name' ref='productName' className='form-control'/>
+                                        </div>
+                                        <div className="col-12 form-group">
+                                            <label>Price :</label>
+                                            <input type="text" placeholder='Enter New Price' ref='price' className='form-control'/>
+                                        </div>
+                                        <div className="col-12 form-group">
+                                            <label>Stock :</label>
+                                            <input type="text" placeholder='Enter New Stock Qty' ref='stock' className='form-control'/>
+                                        </div>
+                                        <div className="col-12 form-group">
+                                            <label>Image (URL)</label>
+                                            <input type="text" placeholder='Enter Url Image' ref='image' className='form-control'/>
+                                        </div>
+                                    </div>
                                 </form>
-                            </Modal.Body>
-                        <Modal.Footer>
+                            </ModalBody>
+                        <ModalFooter>
                             <input type="button" value="Cancel" className='btn btn-outline-secondary' onClick={() => {this.handleModal()}}/>
-                            <input type="button" value="Save" className='btn btn-outline-secondary' onSubmit={this.saveBtnHandle}/>
+                            <input type="button" value="Save" className='btn btn-outline-secondary' onClick={this.saveBtnHandle}/>
 
-                        </Modal.Footer>
+                        </ModalFooter>
                     </Modal>
                    
 
