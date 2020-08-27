@@ -48,7 +48,7 @@ class MainMenu extends React.Component{
                             </div>
                         </div>
                     </div>
-    
+                    
                 )
             }
             return(
@@ -62,13 +62,23 @@ class MainMenu extends React.Component{
                             <h6 className='card-text'>Rp. {val.price}</h6>
                             <p className='card-text'>Stock : {val.stock}</p>
                             <div className="row justify-content-center"><input type="button" value="Edit Data" onClick={() => this.setState({selecId : val.id})}className='btn btn-outline-secondary col-10'/></div>
-                            <div className="row justify-content-center"><input type="button" value="Delete Data" className='btn btn-outline-secondary mt-2 col-10'/></div>
+                            <div className="row justify-content-center"><input type="button" value="Delete Data" onClick={() => this.onDeleteBtn(val.id)} className='btn btn-outline-secondary mt-2 col-10'/></div>
                         </div>
                     </div>
                 </div>
 
             )
         })
+    }
+
+    onDeleteBtn = (id) =>{
+        Axios.delete(linkApi + '/' + id)
+        .then((res) => {
+            console.log(res)
+            this.getData()
+        })
+
+        
     }
     
    onSaveEdit = () => {
