@@ -147,7 +147,7 @@ class MainMenu extends React.Component{
         if(this.state.data !== null){
             return(
                 
-                <div className='container border border-primary'>
+                <div className='container'>
                     
                     <input type="button" value="Add New Product " onClick={() => {this.handleModal()}} className='btn btn-outline-secondary mt-3'/>
                    <div className="row container-fluid">
