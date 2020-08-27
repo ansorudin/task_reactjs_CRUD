@@ -27,6 +27,34 @@
       "price": 20000,
       "stock": 20,
       "image": "https://images.vans.com/is/image/VansEU/VN0A38ENOAK-HERO?$PDP-FULL-IMAGE$"
+    },
+    {
+      "productName": "Sepatu Nike",
+      "price": "a",
+      "stock": "a",
+      "image": "a",
+      "id": 5
+    },
+    {
+      "productName": "Sepatu Nike",
+      "price": "a",
+      "stock": "a",
+      "image": "a",
+      "id": 6
+    },
+    {
+      "productName": "abh",
+      "price": "s",
+      "stock": "s",
+      "image": "s",
+      "id": 7
+    },
+    {
+      "productName": "Sepatu",
+      "price": "a",
+      "stock": "a",
+      "image": "a",
+      "id": 8
     }
   ]
 }

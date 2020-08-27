@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import {Modal, ModalHeader, ModalBody, ModalFooter, Toast, ToastBody, ToastHeader} from 'reactstrap'
+import {Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap'
 
 
 
@@ -61,34 +61,32 @@ class MainMenu extends React.Component{
         var quantiti = this.refs.stock.value
         var gambar = this.refs.image.value
         // jika inputan ada semua
-        Axios.post(linkApi, {productName : prodak , price : harga, stock : quantiti, image : gambar})
-        .then((res) => {
-            console.log(res.data)
-            if(res.status === 201){
-                this.handleModal()
-                this.getData()
-                this.haha()
-            }
+        if(prodak && harga && quantiti && gambar){
+            const userExists = this.state.data.some(user => user.productName === prodak);
+                if(userExists){
+                alert('Nama Produk Udah Ada')
+                }else{
+                    Axios.post(linkApi, {productName : prodak , price : harga, stock : quantiti, image : gambar})
+                    .then((res) => {
+                        console.log(res.data)
+                        if(res.status === 201){
+                            this.handleModal()
+                            this.getData()
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })       
+                }
             
-        })
-        .catch((err) => {
-            console.log(err)
-        })       
+
+        }else{
+            alert('Tidak boleh kosong')
+        }
+           
     }
 
-    haha(){
-        return(<div>
-        <Toast>
-            <ToastHeader>
-                Reactstrap
-            </ToastHeader>
-            <ToastBody>
-                This is a toast on a white background — check it out!
-            </ToastBody>
-        </Toast>
-        </div>
-        )
-    }
+   
 
     render(){
         if(this.state.data !== null){
@@ -104,11 +102,12 @@ class MainMenu extends React.Component{
                     <Modal size="lg" isOpen={this.state.showForm} onExit={() => this.handleModal()}>
                         <ModalHeader>Modal Head Part</ModalHeader>
                             <ModalBody>
-                                <form>
+                                <form className='needs-validation'>
                                     <div className="row m-3">
                                         <div className="col-12 form-group">
                                             <label>Product Name :</label>
                                             <input type="text" placeholder='Enter New Product Name' ref='productName' className='form-control'/>
+
                                         </div>
                                         <div className="col-12 form-group">
                                             <label>Price :</label>
