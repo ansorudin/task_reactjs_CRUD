@@ -34,10 +34,10 @@ class MainMenu extends React.Component{
         return this.state.data.map((val, index) => {
             if(this.state.selecId === val.id){
                 return(
-                    <div className="col-3 mt-4" key={index}>
+                    <div className="col-md-3 mt-4" key={index}>
                         <div className="border rounded border-card">
                             <div className='border rounded d-flex justify-content-center gambar-border'>
-                                <img src={val.image} className='card-image-top gambar-card align-self-center' alt='gambar gagal'/>
+                                <img src={val.image} className='card-image-top gambar-card align-self-center img-fluid' alt='gambar gagal'/>
                             </div>
                             <div className="card-body">
                                 <h5><input type="text" defaultValue={val.productName} ref='namaNew' className='card-title form-control'/></h5>
@@ -52,10 +52,10 @@ class MainMenu extends React.Component{
                 )
             }
             return(
-                <div className="col-3 mt-4" key={index}>
+                <div className="col-md-3 mt-4" key={index}>
                     <div className="border rounded">
                         <div className='border rounded d-flex justify-content-center gambar-border'>
-                            <img src={val.image} className='card-image-top gambar-card align-self-center' alt='gambar gagal'/>
+                            <img src={val.image} className='card-image-top gambar-card align-self-center img-fluid' alt='gambar gagal'/>
                         </div>
                         <div className="card-body">
                             <h5 className='card-title'>{val.productName}</h5>
@@ -184,33 +184,13 @@ class MainMenu extends React.Component{
 
                         </ModalFooter>
                     </Modal>
-                   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
             )
         }
         return(
             <div className='container border border-primary'>
                 <input type="button" value="Add New Product " className='btn btn-outline-secondary mt-3'/>
-               
+                
             </div>
         )
     }

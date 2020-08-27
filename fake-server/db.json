@@ -1,13 +1,6 @@
 {
   "product": [
     {
-      "productName": "Sepatu Vans",
-      "price": "200000",
-      "stock": "100",
-      "image": "https://images.vans.com/is/image/VansEU/VN0A38ENOAK-HERO?$PDP-FULL-IMAGE$",
-      "id": 1
-    },
-    {
       "productName": "Sepatu Nike",
       "price": "10900",
       "stock": "80",
